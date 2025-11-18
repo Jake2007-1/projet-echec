@@ -7,6 +7,6 @@ public class Fou extends Piece{
 
     @Override
     public boolean estValide(Position depart, Position arrivee) {
-        return depart.getColonne() != arrivee.getColonne() && depart.getLigne() != arrivee.getLigne() && (arrivee.getLigne() % 2 == arrivee.getColonne() % 2);
+        return Math.pow(arrivee.getLigne() - depart.getLigne(),2) == Math.pow(arrivee.getColonne() - depart.getColonne(),2);
     }
 }

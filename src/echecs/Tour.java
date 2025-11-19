@@ -8,7 +8,8 @@ public class Tour extends Piece{
 
     @Override
     public boolean estValide(Position depart, Position arrivee) {
-        return depart.getColonne() == arrivee.getColonne() || depart.getLigne() == arrivee.getLigne() ? true : false;
+        return  estSurEchiquier(arrivee) && (
+                depart.getColonne() == arrivee.getColonne() || depart.getLigne() == arrivee.getLigne());
 
     }
 }

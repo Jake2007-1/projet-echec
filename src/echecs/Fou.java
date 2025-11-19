@@ -7,6 +7,7 @@ public class Fou extends Piece{
 
     @Override
     public boolean estValide(Position depart, Position arrivee) {
-        return Math.pow(arrivee.getLigne() - depart.getLigne(),2) == Math.pow(arrivee.getColonne() - depart.getColonne(),2);
+        return  estSurEchiquier(arrivee) &&
+                Math.pow(arrivee.getLigne() - depart.getLigne(),2) == Math.pow(arrivee.getColonne() - depart.getColonne(),2);
     }
 }

@@ -26,7 +26,7 @@ package echecs;
      public void setType (Type type) { this.type = type; }
      public Couleur getCouleur () { return couleur; }
      public void setCouleur (Couleur couleur) {
-        if (couleur != Couleur.NOIR  ||  couleur != Couleur.BLANC)
+        if (couleur != Couleur.NOIR  &&  couleur != Couleur.BLANC)
             throw new IllegalArgumentException("Couleur non-valide");
         this.couleur = couleur;
      }
@@ -44,6 +44,10 @@ package echecs;
 
      /* méthode abstraite à implémenter dans chacune des sous-classes */
      public abstract boolean estValide (Position depart, Position arrivee);
+
+     public boolean estSurEchiquier(Position p){
+         return p.getColonne() < 8 && p.getLigne() < 8 && p.getColonne() >= 0 && p.getLigne() >= 0;
+     }
  }
 
 

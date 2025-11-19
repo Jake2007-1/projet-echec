@@ -7,6 +7,10 @@ public class Pion extends Piece{
 
     @Override
     public boolean estValide(Position depart, Position arrivee) {
-        return false;
+        return
+                estSurEchiquier(arrivee) && (
+                depart.getColonne() == arrivee.getColonne() &&
+                (this.getCouleur() == Couleur.BLANC ? depart.getLigne() + 1 : depart.getLigne() - 1) == arrivee.getLigne());
+
     }
 }

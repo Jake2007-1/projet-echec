@@ -7,6 +7,14 @@ public class Roi extends Piece{
 
     @Override
     public boolean estValide(Position depart, Position arrivee) {
-        return false;
+        return  estSurEchiquier(arrivee) && (
+                (depart.getColonne() + 1 == arrivee.getColonne() && depart.getLigne() == arrivee.getLigne()) ||
+                (depart.getColonne() - 1 == arrivee.getColonne() && depart.getLigne() == arrivee.getLigne()) ||
+                (depart.getLigne() + 1 == arrivee.getLigne() && depart.getColonne() == arrivee.getColonne()) ||
+                (depart.getLigne() - 1 == arrivee.getLigne() && depart.getColonne() == arrivee.getColonne()) ||
+                (depart.getLigne() + 1 == arrivee.getLigne() && depart.getColonne() + 1 == arrivee.getColonne()) ||
+                (depart.getLigne() - 1 == arrivee.getLigne() && depart.getColonne() - 1 == arrivee.getColonne()) ||
+                (depart.getLigne() - 1 == arrivee.getLigne() && depart.getColonne() + 1 == arrivee.getColonne()) ||
+                (depart.getLigne() + 1 == arrivee.getLigne() && depart.getColonne() - 1 == arrivee.getColonne()));
     }
 }

@@ -7,6 +7,9 @@ public class Reine extends Piece{
 
     @Override
     public boolean estValide(Position depart, Position arrivee) {
-        return false;
+        return  estSurEchiquier(arrivee) && (
+                depart.getColonne() == arrivee.getColonne() ||
+                depart.getLigne() == arrivee.getLigne() ||
+                Math.pow(arrivee.getLigne() - depart.getLigne(),2) == Math.pow(arrivee.getColonne() - depart.getColonne(),2));
     }
 }

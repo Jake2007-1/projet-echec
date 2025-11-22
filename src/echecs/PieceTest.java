@@ -26,20 +26,17 @@ class PieceTest {
 
     @BeforeEach
     void setUp() {
-        p1 = new Pion(Piece.Type.PION, Piece.Couleur.NOIR);
+        p2 = new Pion(Piece.Type.PION, Piece.Couleur.NOIR);
         p1 = new Pion(Piece.Type.PION, Piece.Couleur.BLANC);
 
         r1 = new Roi(Piece.Type.ROI, Piece.Couleur.NOIR);
-        r1 = new Roi(Piece.Type.ROI, Piece.Couleur.BLANC);
+        r2 = new Roi(Piece.Type.ROI, Piece.Couleur.BLANC);
 
         re1 = new Reine(Piece.Type.REINE, Piece.Couleur.NOIR);
         re2 = new Reine(Piece.Type.REINE, Piece.Couleur.BLANC);
 
         f1 = new Fou(Piece.Type.FOU, Piece.Couleur.NOIR);
         f2 = new Fou(Piece.Type.FOU, Piece.Couleur.BLANC);
-
-        c1 = new Cavalier(Piece.Type.CAVALIER, Piece.Couleur.NOIR);
-        c2 = new Cavalier(Piece.Type.CAVALIER, Piece.Couleur.BLANC);
 
         c1 = new Cavalier(Piece.Type.CAVALIER, Piece.Couleur.NOIR);
         c2 = new Cavalier(Piece.Type.CAVALIER, Piece.Couleur.BLANC);
@@ -51,8 +48,8 @@ class PieceTest {
     void estValide() {
         assertTrue(p1.estValide(new Position(1,1), new Position(2,1)));
         assertTrue(p2.estValide(new Position(1,1), new Position(0,1)));
-        assertFalse(p1.estValide(new Position(2,1), new Position(3,1)));
-        assertFalse(p2.estValide(new Position(1,1), new Position(0,1)));
+        assertFalse(p2.estValide(new Position(2,1), new Position(3,1)));
+        assertFalse(p1.estValide(new Position(1,1), new Position(0,1)));
 
         assertTrue(c1.estValide(new Position(0,0), new Position(1,2)));
         assertTrue(c2.estValide(new Position(0,0), new Position(2,1)));
@@ -75,7 +72,7 @@ class PieceTest {
         assertFalse(r2.estValide(new Position(3,1), new Position(0,1)));
 
         assertTrue(re1.estValide(new Position(0,0), new Position(0,7)));
-        assertTrue(re2.estValide(new Position(3,3), new Position(1,6)));
+        assertTrue(re2.estValide(new Position(3,3), new Position(5,5)));
         assertFalse(re1.estValide(new Position(7,2), new Position(3,1)));
         assertFalse(re2.estValide(new Position(4,1), new Position(0,2)));
     }

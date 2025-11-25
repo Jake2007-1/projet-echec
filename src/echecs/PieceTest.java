@@ -1,79 +1,546 @@
 package echecs;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class PieceTest {
 
-    private Pion p1;
-    private Pion p2;
 
-    private Fou f1;
-    private Fou f2;
+        Pion pBl;
+        Pion pNo;
+        Reine rei;
+        Roi roi;
+        Cavalier cav;
+        Fou fou;
+        Tour tou;
+        Position depart;
+        Position arrivee;
 
-    private Cavalier c1;
-    private Cavalier c2;
+        @BeforeEach
+        void setUp() {
+            pNo = new Pion(Piece.Couleur.NOIR);
+            pBl = new Pion(Piece.Couleur.BLANC);
+            cav = new Cavalier(Piece.Couleur.BLANC);
+            fou = new Fou(Piece.Couleur.BLANC);
+            rei = new Reine(Piece.Couleur.BLANC);
+            roi = new Roi(Piece.Couleur.BLANC);
+            tou = new Tour(Piece.Couleur.BLANC);
+            depart = new Position(3, 3);
+            arrivee = new Position(3, 3);
+        }
 
-    private Tour t1;
-    private Tour t2;
+        @Test
+        void estValidePionN1() {
+            depart.setLigne(1);
+            depart.setColonne(3);
+            arrivee.setLigne(2);
+            arrivee.setColonne(3);
+            assertTrue(pNo.estValide(depart, arrivee));
+        }
 
-    private Reine re1;
-    private Reine re2;
+        @Test
+        void estValidePionN2() {
+            depart.setLigne(1);
+            depart.setColonne(3);
+            arrivee.setLigne(3);
+            arrivee.setColonne(3);
+            assertTrue(pNo.estValide(depart, arrivee));
+        }
 
-    private Roi r1;
-    private Roi r2;
+        @Test
+        void estValidePionN3() {
+            depart.setLigne(1);
+            depart.setColonne(3);
+            arrivee.setLigne(0);
+            arrivee.setColonne(3);
+            assertFalse(pNo.estValide(depart, arrivee));
+        }
 
-    @BeforeEach
-    void setUp() {
-        p2 = new Pion(Piece.Type.PION, Piece.Couleur.NOIR);
-        p1 = new Pion(Piece.Type.PION, Piece.Couleur.BLANC);
+        @Test
+        void estValidePionN4() {
+            depart.setLigne(2);
+            depart.setColonne(3);
+            arrivee.setLigne(4);
+            arrivee.setColonne(3);
+            assertFalse(pNo.estValide(depart, arrivee));
+        }
 
-        r1 = new Roi(Piece.Type.ROI, Piece.Couleur.NOIR);
-        r2 = new Roi(Piece.Type.ROI, Piece.Couleur.BLANC);
+        @Test
+        void estValidePionN5() {
+            depart.setLigne(3);
+            depart.setColonne(3);
+            arrivee.setLigne(4);
+            arrivee.setColonne(2);
+            assertFalse(pNo.estValide(depart, arrivee));
+        }
 
-        re1 = new Reine(Piece.Type.REINE, Piece.Couleur.NOIR);
-        re2 = new Reine(Piece.Type.REINE, Piece.Couleur.BLANC);
+        @Test
+        void estValidePionN6() {
+            depart.setLigne(-5);
+            depart.setColonne(3);
+            arrivee.setLigne(-4);
+            arrivee.setColonne(3);
+            assertFalse(pNo.estValide(depart, arrivee));
+        }
 
-        f1 = new Fou(Piece.Type.FOU, Piece.Couleur.NOIR);
-        f2 = new Fou(Piece.Type.FOU, Piece.Couleur.BLANC);
+        @Test
+        void estValidePionN7() {
+            depart.setLigne(3);
+            depart.setColonne(3);
+            arrivee.setLigne(3);
+            arrivee.setColonne(3);
+            assertTrue(pNo.estValide(depart, arrivee));
+        }
 
-        c1 = new Cavalier(Piece.Type.CAVALIER, Piece.Couleur.NOIR);
-        c2 = new Cavalier(Piece.Type.CAVALIER, Piece.Couleur.BLANC);
+        @Test
+        void estValidePionB1() {
+            depart.setLigne(6);
+            depart.setColonne(3);
+            arrivee.setLigne(5);
+            arrivee.setColonne(3);
+            assertTrue(pBl.estValide(depart, arrivee));
+        }
 
-        t1 = new Tour(Piece.Type.TOUR, Piece.Couleur.NOIR);
-        t2 = new Tour(Piece.Type.TOUR, Piece.Couleur.BLANC);
+        @Test
+        void estValidePionB2() {
+            depart.setLigne(6);
+            depart.setColonne(3);
+            arrivee.setLigne(4);
+            arrivee.setColonne(3);
+            assertTrue(pBl.estValide(depart, arrivee));
+        }
+
+        @Test
+        void estValidePionB3() {
+            depart.setLigne(6);
+            depart.setColonne(3);
+            arrivee.setLigne(7);
+            arrivee.setColonne(3);
+            assertFalse(pBl.estValide(depart, arrivee));
+        }
+
+        @Test
+        void estValidePionB4() {
+            depart.setLigne(5);
+            depart.setColonne(3);
+            arrivee.setLigne(3);
+            arrivee.setColonne(3);
+            assertFalse(pBl.estValide(depart, arrivee));
+        }
+
+        @Test
+        void estValidePionB5() {
+            depart.setLigne(5);
+            depart.setColonne(3);
+            arrivee.setLigne(4);
+            arrivee.setColonne(2);
+            assertFalse(pBl.estValide(depart, arrivee));
+        }
+
+        @Test
+        void estValidePionB6() {
+            depart.setLigne(-5);
+            depart.setColonne(3);
+            arrivee.setLigne(-4);
+            arrivee.setColonne(3);
+            assertFalse(pBl.estValide(depart, arrivee));
+        }
+
+        @Test
+        void estValidePionB7() {
+            depart.setLigne(3);
+            depart.setColonne(3);
+            arrivee.setLigne(3);
+            arrivee.setColonne(3);
+            assertTrue(pBl.estValide(depart, arrivee));
+        }
+
+        @Test
+        void estValideFou1() {
+            depart.setLigne(-5);
+            depart.setColonne(3);
+            arrivee.setLigne(-4);
+            arrivee.setColonne(3);
+            assertFalse(fou.estValide(depart, arrivee));
+        }
+
+        @Test
+        void estValideFou2() {
+            depart.setLigne(3);
+            depart.setColonne(3);
+            arrivee.setLigne(4);
+            arrivee.setColonne(4);
+            assertTrue(fou.estValide(depart, arrivee));
+        }
+
+        @Test
+        void estValideFou3() {
+            depart.setLigne(3);
+            depart.setColonne(3);
+            arrivee.setLigne(6);
+            arrivee.setColonne(6);
+            assertTrue(fou.estValide(depart, arrivee));
+        }
+
+        @Test
+        void estValideFou4() {
+            depart.setLigne(3);
+            depart.setColonne(3);
+            arrivee.setLigne(6);
+            arrivee.setColonne(0);
+            assertTrue(fou.estValide(depart, arrivee));
+        }
+
+        @Test
+        void estValideFou5() {
+            depart.setLigne(3);
+            depart.setColonne(3);
+            arrivee.setLigne(2);
+            arrivee.setColonne(4);
+            assertTrue(fou.estValide(depart, arrivee));
+        }
+
+        @Test
+        void estValideFou6() {
+            depart.setLigne(3);
+            depart.setColonne(3);
+            arrivee.setLigne(3);
+            arrivee.setColonne(4);
+            assertFalse(fou.estValide(depart, arrivee));
+        }
+
+        @Test
+        void estValideFou7() {
+            depart.setLigne(3);
+            depart.setColonne(3);
+            arrivee.setLigne(2);
+            arrivee.setColonne(5);
+            assertFalse(fou.estValide(depart, arrivee));
+        }
+
+        @Test
+        void estValideFou8() {
+            depart.setLigne(3);
+            depart.setColonne(3);
+            arrivee.setLigne(3);
+            arrivee.setColonne(3);
+            assertTrue(fou.estValide(depart, arrivee));
+        }
+
+        @Test
+        void estValideCav1() {
+            depart.setLigne(3);
+            depart.setColonne(3);
+            arrivee.setLigne(4);
+            arrivee.setColonne(4);
+            assertFalse(cav.estValide(depart, arrivee));
+        }
+
+        @Test
+        void estValideCav2() {
+            depart.setLigne(3);
+            depart.setColonne(3);
+            arrivee.setLigne(2);
+            arrivee.setColonne(1);
+            assertTrue(cav.estValide(depart, arrivee));
+        }
+
+        @Test
+        void estValideCav3() {
+            depart.setLigne(3);
+            depart.setColonne(3);
+            arrivee.setLigne(3);
+            arrivee.setColonne(3);
+            assertTrue(cav.estValide(depart, arrivee));
+        }
+
+        @Test
+        void estValideCav4() {
+            depart.setLigne(3);
+            depart.setColonne(3);
+            arrivee.setLigne(1);
+            arrivee.setColonne(4);
+            assertTrue(cav.estValide(depart, arrivee));
+        }
+
+        @Test
+        void estValideCav5() {
+            depart.setLigne(3);
+            depart.setColonne(3);
+            arrivee.setLigne(4);
+            arrivee.setColonne(5);
+            assertTrue(cav.estValide(depart, arrivee));
+        }
+
+        @Test
+        void estValideCav6() {
+            depart.setLigne(3);
+            depart.setColonne(3);
+            arrivee.setLigne(4);
+            arrivee.setColonne(6);
+            assertFalse(cav.estValide(depart, arrivee));
+        }
+
+        @Test
+        void estValideCav7() {
+            depart.setLigne(3);
+            depart.setColonne(3);
+            arrivee.setLigne(1);
+            arrivee.setColonne(2);
+            assertTrue(cav.estValide(depart, arrivee));
+        }
+
+        @Test
+        void estValideRei1() {
+            depart.setLigne(3);
+            depart.setColonne(3);
+            arrivee.setLigne(3);
+            arrivee.setColonne(3);
+            assertTrue(rei.estValide(depart, arrivee));
+        }
+
+        @Test
+        void estValideRei2() {
+            depart.setLigne(3);
+            depart.setColonne(3);
+            arrivee.setLigne(7);
+            arrivee.setColonne(7);
+            assertTrue(rei.estValide(depart, arrivee));
+        }
+
+        @Test
+        void estValideRei3() {
+            depart.setLigne(3);
+            depart.setColonne(3);
+            arrivee.setLigne(6);
+            arrivee.setColonne(0);
+            assertTrue(rei.estValide(depart, arrivee));
+        }
+
+        @Test
+        void estValideRei4() {
+            depart.setLigne(3);
+            depart.setColonne(3);
+            arrivee.setLigne(3);
+            arrivee.setColonne(7);
+            assertTrue(rei.estValide(depart, arrivee));
+        }
+
+        @Test
+        void estValideRei5() {
+            depart.setLigne(3);
+            depart.setColonne(3);
+            arrivee.setLigne(7);
+            arrivee.setColonne(3);
+            assertTrue(rei.estValide(depart, arrivee));
+        }
+
+        @Test
+        void estValideRei6() {
+            depart.setLigne(3);
+            depart.setColonne(3);
+            arrivee.setLigne(0);
+            arrivee.setColonne(3);
+            assertTrue(rei.estValide(depart, arrivee));
+        }
+
+        @Test
+        void estValideRei7() {
+            depart.setLigne(3);
+            depart.setColonne(3);
+            arrivee.setLigne(7);
+            arrivee.setColonne(3);
+            assertTrue(rei.estValide(depart, arrivee));
+        }
+
+        @Test
+        void estValideRei8() {
+            depart.setLigne(3);
+            depart.setColonne(3);
+            arrivee.setLigne(4);
+            arrivee.setColonne(5);
+            assertFalse(rei.estValide(depart, arrivee));
+        }
+
+        @Test
+        void estValideRei9() {
+            depart.setLigne(3);
+            depart.setColonne(3);
+            arrivee.setLigne(1);
+            arrivee.setColonne(6);
+            assertFalse(rei.estValide(depart, arrivee));
+        }
+
+        @Test
+        void estValideRei10() {
+            depart.setLigne(3);
+            depart.setColonne(3);
+            arrivee.setLigne(0);
+            arrivee.setColonne(4);
+            assertFalse(rei.estValide(depart, arrivee));
+        }
+
+        @Test
+        void estValiderTour1() {
+            depart.setLigne(3);
+            depart.setColonne(3);
+            arrivee.setLigne(3);
+            arrivee.setColonne(3);
+            assertTrue(tou.estValide(depart, arrivee));
+        }
+
+        @Test
+        void estValiderTour2() {
+            depart.setLigne(3);
+            depart.setColonne(3);
+            arrivee.setLigne(0);
+            arrivee.setColonne(3);
+            assertTrue(tou.estValide(depart, arrivee));
+        }
+
+        @Test
+        void estValiderTour3() {
+            depart.setLigne(3);
+            depart.setColonne(3);
+            arrivee.setLigne(3);
+            arrivee.setColonne(0);
+            assertTrue(tou.estValide(depart, arrivee));
+        }
+
+        @Test
+        void estValiderTour4() {
+            depart.setLigne(3);
+            depart.setColonne(3);
+            arrivee.setLigne(4);
+            arrivee.setColonne(4);
+            assertFalse(tou.estValide(depart, arrivee));
+        }
+
+        @Test
+        void estValiderTour5() {
+            depart.setLigne(3);
+            depart.setColonne(3);
+            arrivee.setLigne(2);
+            arrivee.setColonne(4);
+            assertFalse(tou.estValide(depart, arrivee));
+        }
+
+        @Test
+        void estValiderTour6() {
+            depart.setLigne(3);
+            depart.setColonne(3);
+            arrivee.setLigne(1);
+            arrivee.setColonne(2);
+            assertFalse(tou.estValide(depart, arrivee));
+        }
+
+        @Test
+        void estValiderTour7() {
+            depart.setLigne(3);
+            depart.setColonne(3);
+            arrivee.setLigne(0);
+            arrivee.setColonne(4);
+            assertFalse(tou.estValide(depart, arrivee));
+        }
+
+        @Test
+        void estValiderTour8() {
+            depart.setLigne(3);
+            depart.setColonne(3);
+            arrivee.setLigne(0);
+            arrivee.setColonne(4);
+            assertFalse(tou.estValide(depart, arrivee));
+        }
+
+        @Test
+        void estValiderRoi1() {
+            depart.setLigne(3);
+            depart.setColonne(3);
+            arrivee.setLigne(3);
+            arrivee.setColonne(4);
+            assertTrue(roi.estValide(depart, arrivee));
+        }
+
+        @Test
+        void estValiderRoi2() {
+            depart.setLigne(3);
+            depart.setColonne(3);
+            arrivee.setLigne(2);
+            arrivee.setColonne(2);
+            assertTrue(roi.estValide(depart, arrivee));
+        }
+
+        @Test
+        void estValiderRoi3() {
+            depart.setLigne(3);
+            depart.setColonne(3);
+            arrivee.setLigne(2);
+            arrivee.setColonne(4);
+            assertTrue(roi.estValide(depart, arrivee));
+        }
+
+        @Test
+        void estValiderRoi4() {
+            depart.setLigne(3);
+            depart.setColonne(3);
+            arrivee.setLigne(4);
+            arrivee.setColonne(3);
+            assertTrue(roi.estValide(depart, arrivee));
+        }
+
+        @Test
+        void estValiderRoi5() {
+            depart.setLigne(3);
+            depart.setColonne(3);
+            arrivee.setLigne(4);
+            arrivee.setColonne(1);
+            assertFalse(roi.estValide(depart, arrivee));
+        }
+
+        @Test
+        void estValiderRoi6() {
+            depart.setLigne(3);
+            depart.setColonne(3);
+            arrivee.setLigne(3);
+            arrivee.setColonne(1);
+            assertFalse(roi.estValide(depart, arrivee));
+        }
+
+        @Test
+        void estValiderRoi7() {
+            depart.setLigne(3);
+            depart.setColonne(3);
+            arrivee.setLigne(1);
+            arrivee.setColonne(1);
+            assertFalse(roi.estValide(depart, arrivee));
+        }
+
+        @Test
+        void estValiderRoi8() {
+            depart.setLigne(3);
+            depart.setColonne(3);
+            arrivee.setLigne(1);
+            arrivee.setColonne(2);
+            assertFalse(roi.estValide(depart, arrivee));
+        }
+
+        @Test
+        void estValiderRoi9() {
+            depart.setLigne(3);
+            depart.setColonne(3);
+            arrivee.setLigne(5);
+            arrivee.setColonne(3);
+            assertFalse(roi.estValide(depart, arrivee));
+        }
+
+        @Test
+        void estValiderRoi10() {
+            depart.setLigne(3);
+            depart.setColonne(3);
+            arrivee.setLigne(0);
+            arrivee.setColonne(3);
+            assertFalse(roi.estValide(depart, arrivee));
+        }
     }
-    @org.junit.jupiter.api.Test
-    void estValide() {
-        assertTrue(p1.estValide(new Position(1,1), new Position(2,1)));
-        assertTrue(p2.estValide(new Position(1,1), new Position(0,1)));
-        assertFalse(p2.estValide(new Position(2,1), new Position(3,1)));
-        assertFalse(p1.estValide(new Position(1,1), new Position(0,1)));
-
-        assertTrue(c1.estValide(new Position(0,0), new Position(1,2)));
-        assertTrue(c2.estValide(new Position(0,0), new Position(2,1)));
-        assertFalse(c1.estValide(new Position(2,1), new Position(3,1)));
-        assertFalse(c2.estValide(new Position(1,1), new Position(0,5)));
-
-        assertTrue(f1.estValide(new Position(1,1), new Position(3,3)));
-        assertTrue(f2.estValide(new Position(6,6), new Position(2,2)));
-        assertFalse(f1.estValide(new Position(1,1), new Position(3,1)));
-        assertFalse(f2.estValide(new Position(6,0), new Position(0,1)));
-
-        assertTrue(t1.estValide(new Position(2,1), new Position(1,1)));
-        assertTrue(t2.estValide(new Position(0,1), new Position(2,1)));
-        assertFalse(t1.estValide(new Position(2,2), new Position(3,1)));
-        assertFalse(t2.estValide(new Position(1,3), new Position(0,1)));
-
-        assertTrue(r1.estValide(new Position(1,1), new Position(1,2)));
-        assertTrue(r2.estValide(new Position(1,1), new Position(2,2)));
-        assertFalse(r1.estValide(new Position(2,1), new Position(5,1)));
-        assertFalse(r2.estValide(new Position(3,1), new Position(0,1)));
-
-        assertTrue(re1.estValide(new Position(0,0), new Position(0,7)));
-        assertTrue(re2.estValide(new Position(3,3), new Position(5,5)));
-        assertFalse(re1.estValide(new Position(7,2), new Position(3,1)));
-        assertFalse(re2.estValide(new Position(4,1), new Position(0,2)));
-    }
-}

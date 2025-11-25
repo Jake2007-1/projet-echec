@@ -43,11 +43,17 @@ package echecs;
      }
 
      /* méthode abstraite à implémenter dans chacune des sous-classes */
-     public abstract boolean estValide (Position depart, Position arrivee);
-
-     public boolean estSurEchiquier(Position p){
-         return p.getColonne() < 8 && p.getLigne() < 8 && p.getColonne() >= 0 && p.getLigne() >= 0;
+     public boolean estValide(Position depart, Position arrivee){
+         if(!estSurEchiquier(depart, arrivee)) return false;
+         return estValideSpecifique(depart, arrivee);
      }
+
+     public boolean estSurEchiquier(Position d ,Position a){
+         return a.getColonne() < 8 && a.getLigne() < 8 && a.getColonne() >= 0 && a.getLigne() >= 0 &&
+                d.getColonne() < 8 && d.getLigne() < 8 && d.getColonne() >= 0 && d.getLigne() >= 0;
+     }
+
+     public abstract boolean estValideSpecifique(Position depart, Position arrivee);
  }
 
 

@@ -1,5 +1,7 @@
 package echecs;
 
+import java.lang.reflect.Type;
+
 public class Echiquier implements MethodesEchiquier {
     private Case[][] echiquier;
 
@@ -58,7 +60,32 @@ public class Echiquier implements MethodesEchiquier {
 
     @Override
     public boolean cheminPossible(Position depart, Position arrivee) {
-        return false;
+        Case c = getCase(depart.getLigne(), depart.getColonne());
+        boolean chemPos = false;
+        if(c.getPiece().estValide(depart,arrivee)){
+            switch (c.getPiece().getType()){
+                case Piece.Type.PION:
+                    Position test = new Position(arrivee.getLigne(),arrivee.getColonne());
+                    if (depart.getLigne() + 2 == arrivee.getLigne())
+                        test = new Position(arrivee.getLigne() - 1, arrivee.getColonne());
+                    if (depart.getLigne() -2 == arrivee.getLigne())
+                        test = new Position(arrivee.getLigne() + 1, arrivee.getColonne());
+                    Case c1 = getCase(test.getLigne(),test.getColonne());
+                    if (c1.estOccupe()) {
+                        chemPos = false;
+                        break;
+                    }
+                case Piece.Type.CAVALIER:
+                    Case ca = getCase(arrivee.getLigne(), arrivee.getColonne());
+                    if(ca.estOccupe())
+                        chemPos  = ca.estOccupeCouleur(c.getPiece().getCouleur());
+                    else
+                        chemPos = true;
+
+            }
+        }
+        return  chemPos;
+
     }
 
     @Override

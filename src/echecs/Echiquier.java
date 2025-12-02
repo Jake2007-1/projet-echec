@@ -27,26 +27,26 @@ public class Echiquier implements MethodesEchiquier {
             switch (i){
                 case 0:
                 case 7:
-                    echiquier[0][i].setPiece(new Tour(Piece.Couleur.BLANC));
-                    echiquier[7][i].setPiece(new Tour(Piece.Couleur.NOIR));
+                    echiquier[0][i].setPiece(new Tour(Piece.Couleur.NOIR));
+                    echiquier[7][i].setPiece(new Tour(Piece.Couleur.BLANC));
                     break;
                 case 1:
                 case 6:
-                    echiquier[0][i].setPiece(new Cavalier(Piece.Couleur.BLANC));
-                    echiquier[7][i].setPiece(new Cavalier(Piece.Couleur.NOIR));
+                    echiquier[0][i].setPiece(new Cavalier(Piece.Couleur.NOIR));
+                    echiquier[7][i].setPiece(new Cavalier(Piece.Couleur.BLANC));
                     break;
                 case 2:
                 case 5:
-                    echiquier[0][i].setPiece(new Fou(Piece.Couleur.BLANC));
-                    echiquier[7][i].setPiece(new Fou(Piece.Couleur.NOIR));
+                    echiquier[0][i].setPiece(new Fou(Piece.Couleur.NOIR));
+                    echiquier[7][i].setPiece(new Fou(Piece.Couleur.BLANC));
                     break;
                 case 3:
-                    echiquier[0][i].setPiece(new Reine(Piece.Couleur.BLANC));
-                    echiquier[7][i].setPiece(new Reine(Piece.Couleur.NOIR));
+                    echiquier[0][i].setPiece(new Reine(Piece.Couleur.NOIR));
+                    echiquier[7][i].setPiece(new Reine(Piece.Couleur.BLANC));
                     break;
                 case 4:
-                    echiquier[0][i].setPiece(new Roi(Piece.Couleur.BLANC));
-                    echiquier[7][i].setPiece(new Roi(Piece.Couleur.NOIR));
+                    echiquier[0][i].setPiece(new Roi(Piece.Couleur.NOIR));
+                    echiquier[7][i].setPiece(new Roi(Piece.Couleur.BLANC));
                     break;
             }
 
@@ -63,24 +63,37 @@ public class Echiquier implements MethodesEchiquier {
         Case c = getCase(depart.getLigne(), depart.getColonne());
         boolean chemPos = false;
         if(c.getPiece().estValide(depart,arrivee)){
-            switch (c.getPiece().getType()){
-                case Piece.Type.PION:
-                    Position test = new Position(arrivee.getLigne(),arrivee.getColonne());
-                    if (depart.getLigne() + 2 == arrivee.getLigne())
-                        test = new Position(arrivee.getLigne() - 1, arrivee.getColonne());
-                    if (depart.getLigne() -2 == arrivee.getLigne())
-                        test = new Position(arrivee.getLigne() + 1, arrivee.getColonne());
-                    Case c1 = getCase(test.getLigne(),test.getColonne());
-                    if (c1.estOccupe()) {
-                        chemPos = false;
+            if (depart.getLigne() ==  arrivee.getLigne() && depart.getColonne() == arrivee.getColonne())
+                chemPos = true;
+            else{
+                Case ca = getCase(arrivee.getLigne(), arrivee.getColonne());
+                switch (c.getPiece().getType()){
+                    case Piece.Type.PION:
+                        Position test = new Position(arrivee.getLigne(),arrivee.getColonne());
+                        if (depart.getLigne() + 2 == arrivee.getLigne())
+                            test = new Position(arrivee.getLigne() - 1, arrivee.getColonne());
+                        if (depart.getLigne() -2 == arrivee.getLigne())
+                            test = new Position(arrivee.getLigne() + 1, arrivee.getColonne());
+                        Case c1 = getCase(test.getLigne(),test.getColonne());
+                        if (c1.estOccupe())
+                            break;
+                    case Piece.Type.CAVALIER:
+                    case Piece.Type.ROI:
+
+                        if(ca.estOccupe())
+                            chemPos  = ca.estOccupeCouleur(c.getPiece().getCouleur());
+                        else
+                            chemPos = true;
                         break;
-                    }
-                case Piece.Type.CAVALIER:
-                    Case ca = getCase(arrivee.getLigne(), arrivee.getColonne());
-                    if(ca.estOccupe())
-                        chemPos  = ca.estOccupeCouleur(c.getPiece().getCouleur());
-                    else
-                        chemPos = true;
+                    case Piece.Type.TOUR:
+                        if (ca.estOccupe())
+                            if (ca.estOccupeCouleur(c.getPiece().getCouleur())){
+
+                                for (int i = 0; i < )
+                            }
+
+                }
+
 
             }
         }

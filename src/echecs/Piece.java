@@ -54,6 +54,11 @@ package echecs;
      }
 
      public abstract boolean estValideSpecifique(Position depart, Position arrivee);
+
+     @Override
+     public String toString(){
+         return getClass().getSimpleName().substring(0,3) + " " + couleur.toString().charAt(0);
+     }
  }
 
 

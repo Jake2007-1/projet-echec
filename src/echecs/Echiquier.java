@@ -68,7 +68,7 @@ public class Echiquier implements MethodesEchiquier {
             else{
                 Case ca = getCase(arrivee.getLigne(), arrivee.getColonne());
                 switch (c.getPiece().getType()){
-                    case Piece.Type.PION:
+                    case PION:
                         Position test = new Position(arrivee.getLigne(),arrivee.getColonne());
                         if (depart.getLigne() + 2 == arrivee.getLigne())
                             test = new Position(arrivee.getLigne() - 1, arrivee.getColonne());
@@ -77,32 +77,113 @@ public class Echiquier implements MethodesEchiquier {
                         Case c1 = getCase(test.getLigne(),test.getColonne());
                         if (c1.estOccupe())
                             break;
-                    case Piece.Type.CAVALIER:
-                    case Piece.Type.ROI:
-
                         if(ca.estOccupe())
-                            chemPos  = ca.estOccupeCouleur(c.getPiece().getCouleur());
+                            break;
+                    case CAVALIER:
+                    case ROI:
+                        if(ca.estOccupe())
+                            chemPos  = !ca.estOccupeCouleur(c.getPiece().getCouleur());
                         else
                             chemPos = true;
                         break;
-                    case Piece.Type.TOUR:
-                        if (ca.estOccupe())
-                            if (ca.estOccupeCouleur(c.getPiece().getCouleur())){
-
-                                for (int i = 0; i < )
-                            }
-
+                    case TOUR:
+                        chemPos = deplacementLineaire(depart,arrivee,ca,c);
+                        break;
+                    case  FOU:
+                        chemPos = deplacementDiagonal(depart,arrivee,ca,c);
+                        break;
+                    case REINE:
+                        if (Math.pow(arrivee.getLigne() - depart.getLigne(),2) == Math.pow(arrivee.getColonne() - depart.getColonne(),2)) {
+                            chemPos = deplacementDiagonal(depart, arrivee, ca, c);
+                            break;
+                        }
+                        else if (depart.getColonne() == arrivee.getColonne() || depart.getLigne() == arrivee.getLigne()){
+                            chemPos = deplacementLineaire(depart,arrivee,ca,c);
+                            break;
+                        }
                 }
-
-
             }
         }
         return  chemPos;
 
+    }
+    public boolean deplacementLineaire(Position depart, Position arrivee, Case ca, Case c){
+        boolean chemPos= false;
+        boolean toutRegarder = false;
+        boolean pieceDansChemin= false;
+        Position temp = new Position(depart.getLigne(), depart.getColonne());
+        while (!toutRegarder){
+            if (temp.getLigne() < arrivee.getLigne())
+                temp.setLigne(temp.getLigne() + 1);
+            else if (temp.getLigne() > arrivee.getLigne())
+                temp.setLigne(temp.getLigne() - 1);
+            else if (temp.getColonne() < arrivee.getColonne())
+                temp.setColonne(temp.getColonne() + 1);
+            else if (temp.getColonne() > arrivee.getColonne())
+                temp.setColonne(temp.getLigne() - 1);
+            else if (temp.getLigne() == arrivee.getLigne() && temp.getColonne() == arrivee.getColonne())
+                toutRegarder = true;
+
+            if (!toutRegarder)
+                if(getCase(temp.getLigne(), temp.getColonne()).estOccupe()) {
+                    pieceDansChemin = true;
+                }
+
+        }
+        if (!pieceDansChemin)
+            if (ca.estOccupe()) {
+                if (!ca.estOccupeCouleur(c.getPiece().getCouleur())) {
+                    chemPos = true;
+                }
+            }
+            else
+                chemPos = true;
+        return  chemPos;
+    }
+
+    public boolean deplacementDiagonal(Position depart, Position arrivee, Case ca, Case c){
+        boolean chemPos = false;
+        int verifC = 0;
+        int verifL = 0;
+        if (depart.getColonne() < arrivee.getColonne())
+            verifC = 1;
+        else
+            verifC = -1;
+        if (depart.getLigne() < arrivee.getLigne())
+            verifL = 1;
+        else
+            verifL = -1;
+        boolean toutR = false;
+        boolean p = false;
+        while (!toutR){
+            Position t = new Position(depart.getLigne(), depart.getColonne());
+            t.setColonne(t.getColonne() + verifC);
+            t.setLigne(t.getLigne() + verifL);
+            if (t.getLigne() == arrivee.getLigne() && t.getColonne() == arrivee.getColonne())
+                toutR = true;
+            if (!toutR)
+                if(getCase(t.getLigne(), t.getColonne()).estOccupe())
+                    p = true;
+        }
+        if (!p){
+            if (ca.estOccupe()) {
+                if (!ca.estOccupeCouleur(c.getPiece().getCouleur())) {
+                    chemPos = true;
+                }
+            } else
+                chemPos = true;
+        }
+        return chemPos;
     }
 
     @Override
     public boolean captureParUnPionPossible(Position depart, Position arrivee) {
         return false;
     }
+
+//    @Override
+//    public String toString(){
+//        String board = "";
+//        for (int li)
+//    }
 }

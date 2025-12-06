@@ -216,59 +216,59 @@ public class EchiquierTest {
     assertTrue(e.cheminPossible(depart, arrivee));
   }
 
-  // test vérifiant qu'un Pion ne peut pas se déplacer diagonalement vers une Case libre
-//  @Test
-//  public void testUn(){
-//    Position depart = new Position (1,4);
-//    Position arrivee = new Position (0,5);
-//    assertTrue(e.captureParUnPionPossible(depart, arrivee));
-//  }
-//
-//  // test vérifiant qu'un Pion ne peut pas se déplacer diagonalement en reculant
-//  @Test
-//  public void testDeux(){
-//    Position depart = new Position (1,4);
-//    Position arrivee = new Position (2,5);
-//    assertFalse(e.captureParUnPionPossible(depart, arrivee));
-//  }
-//
-//  // test vérifiant qu'un Pion ne peut pas se déplacer diagonalement vers une case vide
-//  @Test
-//  public void testTrois(){
-//    Position depart = new Position (2,5);
-//    Position arrivee = new Position (3,4);
-//    assertFalse(e.captureParUnPionPossible(depart, arrivee));
-//  }
-//
-//  // test vérifiant qu'un Pion ne peut pas se déplacer diagonalement en reculant
-//  @Test
-//  public void testQuatre(){
-//    Position depart = new Position (1,6);
-//    Position arrivee = new Position (2,5);
-//    assertFalse(e.captureParUnPionPossible(depart, arrivee));
-//  }
-//
-//  // test vérifiant qu'un Pion ne peut pas se déplacer diagonalement en reculant
-//  @Test
-//  public void testCinq(){
-//    Position depart = new Position (1,6);
-//    Position arrivee = new Position (2,7);
-//    assertFalse(e.captureParUnPionPossible(depart, arrivee));
-//  }
-//
-//  // test vérifiant qu'un Pion peut capturer une piece ennemie en diagonale
-//  @Test
-//  public void testSix(){
-//    Position depart = new Position (2,5);
-//    Position arrivee = new Position (3,6);
-//    assertTrue(e.captureParUnPionPossible(depart, arrivee));
-//  }
-//
-//  // test vérifiant qu'un Pion ne peut pas capturer une piece de sa couleur
-//  @Test
-//  public void testSept(){
-//    Position depart = new Position (1,1);
-//    Position arrivee = new Position (2,0);
-//    assertFalse(e.captureParUnPionPossible(depart, arrivee));
-//  }
+//   test vérifiant qu'un Pion ne peut pas se déplacer diagonalement vers une Case libre
+  @Test
+  public void testUn(){
+    Position depart = new Position (1,4);
+    Position arrivee = new Position (0,5);
+    assertTrue(e.captureParUnPionPossible(depart, arrivee));
+  }
+
+  // test vérifiant qu'un Pion ne peut pas se déplacer diagonalement en reculant
+  @Test
+  public void testDeux(){
+    Position depart = new Position (1,4);
+    Position arrivee = new Position (2,5);
+    assertFalse(e.captureParUnPionPossible(depart, arrivee));
+  }
+
+  // test vérifiant qu'un Pion ne peut pas se déplacer diagonalement vers une case vide
+  @Test
+  public void testTrois(){
+    Position depart = new Position (2,5);
+    Position arrivee = new Position (3,4);
+    assertFalse(e.captureParUnPionPossible(depart, arrivee));
+  }
+
+  // test vérifiant qu'un Pion ne peut pas se déplacer diagonalement en reculant
+  @Test
+  public void testQuatre(){
+    Position depart = new Position (1,6);
+    Position arrivee = new Position (2,5);
+    assertFalse(e.captureParUnPionPossible(depart, arrivee));
+  }
+
+  // test vérifiant qu'un Pion ne peut pas se déplacer diagonalement en reculant
+  @Test
+  public void testCinq(){
+    Position depart = new Position (1,6);
+    Position arrivee = new Position (2,7);
+    assertFalse(e.captureParUnPionPossible(depart, arrivee));
+  }
+
+  // test vérifiant qu'un Pion peut capturer une piece ennemie en diagonale
+  @Test
+  public void testSix(){
+    Position depart = new Position (2,5);
+    Position arrivee = new Position (3,6);
+    assertTrue(e.captureParUnPionPossible(depart, arrivee));
+  }
+
+  // test vérifiant qu'un Pion ne peut pas capturer une piece de sa couleur
+  @Test
+  public void testSept(){
+    Position depart = new Position (1,1);
+    Position arrivee = new Position (2,0);
+    assertFalse(e.captureParUnPionPossible(depart, arrivee));
+  }
 }

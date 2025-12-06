@@ -120,13 +120,15 @@ public class Echiquier implements MethodesEchiquier {
             else if (temp.getColonne() < arrivee.getColonne())
                 temp.setColonne(temp.getColonne() + 1);
             else if (temp.getColonne() > arrivee.getColonne())
-                temp.setColonne(temp.getLigne() - 1);
-            else if (temp.getLigne() == arrivee.getLigne() && temp.getColonne() == arrivee.getColonne())
+                temp.setColonne(temp.getColonne() - 1);
+
+            if (temp.getLigne() == arrivee.getLigne() && temp.getColonne() == arrivee.getColonne())
                 toutRegarder = true;
 
             if (!toutRegarder)
                 if(getCase(temp.getLigne(), temp.getColonne()).estOccupe()) {
                     pieceDansChemin = true;
+                    toutRegarder = true;
                 }
 
         }
@@ -141,7 +143,7 @@ public class Echiquier implements MethodesEchiquier {
         return  chemPos;
     }
 
-    public boolean deplacementDiagonal(Position depart, Position arrivee, Case ca, Case c){
+    public boolean deplacementDiagonal(Position depart, Position arrivee, Case caseArrive, Case caseDepart){
         boolean chemPos = false;
         int verifC = 0;
         int verifL = 0;
@@ -153,21 +155,21 @@ public class Echiquier implements MethodesEchiquier {
             verifL = 1;
         else
             verifL = -1;
-        boolean toutR = false;
-        boolean p = false;
-        while (!toutR){
-            Position t = new Position(depart.getLigne(), depart.getColonne());
+        boolean toutRegarder = false;
+        boolean pieceSurChemin = false;
+        Position t = new Position(depart.getLigne(), depart.getColonne());
+        while (!toutRegarder){
             t.setColonne(t.getColonne() + verifC);
             t.setLigne(t.getLigne() + verifL);
             if (t.getLigne() == arrivee.getLigne() && t.getColonne() == arrivee.getColonne())
-                toutR = true;
-            if (!toutR)
+                toutRegarder = true;
+            if (!toutRegarder)
                 if(getCase(t.getLigne(), t.getColonne()).estOccupe())
-                    p = true;
+                    pieceSurChemin = true;
         }
-        if (!p){
-            if (ca.estOccupe()) {
-                if (!ca.estOccupeCouleur(c.getPiece().getCouleur())) {
+        if (!pieceSurChemin && toutRegarder){
+            if (caseArrive.estOccupe()) {
+                if (!caseArrive.estOccupeCouleur(caseDepart.getPiece().getCouleur())) {
                     chemPos = true;
                 }
             } else

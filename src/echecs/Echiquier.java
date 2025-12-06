@@ -180,6 +180,26 @@ public class Echiquier implements MethodesEchiquier {
 
     @Override
     public boolean captureParUnPionPossible(Position depart, Position arrivee) {
+        Case cd = new Case(getCase(depart.getLigne(), depart.getColonne()).getPiece());
+        Case ca = new Case(getCase(arrivee.getLigne(), arrivee.getColonne()).getPiece());
+
+        int direction;
+        if (cd.getPiece().getCouleur().equals(Piece.Couleur.BLANC)) {
+            direction = -1;
+        } else {
+            direction = 1;
+        }
+
+        int diffLigne = arrivee.getLigne() - depart.getLigne();
+        int diffColonne = Math.abs(arrivee.getColonne() - depart.getColonne());
+
+        if (diffLigne == direction && diffColonne == 1) {
+            if (ca.estOccupe()) {
+                if (!ca.estOccupeCouleur(cd.getPiece().getCouleur())) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 

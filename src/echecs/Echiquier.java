@@ -201,9 +201,17 @@ public class Echiquier implements MethodesEchiquier {
         return false;
     }
 
-//    @Override
-//    public String toString(){
-//        String board = "";
-//        for (int li)
-//    }
+    @Override
+    public String toString(){
+        String board = "";
+        for (int l = 0; l < 8; l++){
+            for (int c = 0; c < 8; c++){
+                if (getCase(l,c).getPiece() == null)
+                    board += " null ";
+                else
+                    board += "{" + getCase(l,c).getPiece().getClass().getSimpleName().substring(0,2) + "," + getCase(l,c).getPiece().getCouleur() + "("+l+"," + c + ")}";
+            }
+        }
+        return board;
+    }
 }

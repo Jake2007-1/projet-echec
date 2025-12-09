@@ -19,6 +19,7 @@ import java.awt.event.*;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
 
 public class FenetreJeu extends JFrame {
     private Echiquier e;        //echiquier
@@ -89,7 +90,16 @@ public class FenetreJeu extends JFrame {
         }
 
         //2. deux nouveaux panels pour les pièces capturées
-    JPanel pieceBlanc = new JPanel();
+        panelNoir = new JPanel(new FlowLayout());
+        panelNoir.setBackground(new Color(5,5,5,160));
+        panelNoir.setBorder(new LineBorder(new Color(0,0,0), 1, true));
+        panelNoir.setBounds(572,65,100,465);
+        this.getContentPane().add(panelNoir);
+        panelBlanc = new JPanel(new FlowLayout());
+        panelBlanc.setBackground(new Color(255,250,250,170));
+        panelBlanc.setBorder(new LineBorder(new Color(0,0,0), 1, true));
+        panelBlanc.setBounds(680,65,100,465);
+        this.getContentPane().add(panelBlanc);
 
     }
     // classe interne privée pour la gestion d'évènements
@@ -106,6 +116,7 @@ public class FenetreJeu extends JFrame {
         public void mouseReleased(MouseEvent eve) {
             // si on clique sur le bouton débuter
             if (eve.getSource() == boutonDebuter) {
+                e.debuter();
                 // 3.quoi faire ?
                 // attribuer les icones aux JLabels
                 champTexte.setText("C'est aux " + couleurControle.toString().toLowerCase() + "s à jouer ");
@@ -144,13 +155,80 @@ public class FenetreJeu extends JFrame {
             // si on clique sur le bouton reset
             else if (eve.getSource() == boutonReset) {
                 //4. votre travail
+                champTexte.setText("C'est aux " + couleurControle.toString().toLowerCase() + "s à jouer ");
+                for (int i = 0; i < 8; i++) {
+
+                    tab[1][i].setIcon(new ImageIcon("./Icones/PN.gif"));
+                    tab[6][i].setIcon(new ImageIcon("./Icones/PB.gif"));
+                    switch (i){
+                        case 0:
+                        case 7:
+                            tab[0][i].setIcon(new ImageIcon("./Icones/TN.gif"));
+                            tab[7][i].setIcon(new ImageIcon("./Icones/TB.gif"));
+                            break;
+                        case 1:
+                        case 6:
+                            tab[0][i].setIcon(new ImageIcon("./Icones/CN.gif"));
+                            tab[7][i].setIcon(new ImageIcon("./Icones/CB.gif"));
+                            break;
+                        case 2:
+                        case 5:
+                            tab[0][i].setIcon(new ImageIcon("./Icones/FN.gif"));
+                            tab[7][i].setIcon(new ImageIcon("./Icones/FB.gif"));
+                            break;
+                        case 3:
+                            tab[0][i].setIcon(new ImageIcon("./Icones/DN.gif"));
+                            tab[7][i].setIcon(new ImageIcon("./Icones/DB.gif"));
+                            break;
+                        case 4:
+                            tab[0][i].setIcon(new ImageIcon("./Icones/RN.gif"));
+                            tab[7][i].setIcon(new ImageIcon("./Icones/RB.gif"));
+                            break;
+                    }
+
+                }
+
             } else { // donc on a cliqué sur un JLabel
                 for (int i = 0; i < 8; i++) {
                     for (int j = 0; j < 8; j++) {
                         if (eve.getSource() == tab[i][j]) {
                             ligneClic = i;
                             colonneClic = j;
+                            System.out.println("clic(" + i + "," + j + ")");
+                            System.out.println(e);
                         }
+                    }
+                }
+
+                if (e.getCase(ligneClic,colonneClic).estOccupeCouleur(couleurControle) && pieceTampon == null){
+                    // initialiser position depart
+                    depart = new Position(ligneClic,colonneClic);
+                    //prendre l'icone et la mettre dans le tampon, prendre la piece et la metre dans le tampon
+                    iconeTampon = (ImageIcon) tab[ligneClic][colonneClic].getIcon();
+                    pieceTampon = e.getCase(ligneClic, colonneClic).getPiece();
+                    //retirer l'icone du board visible
+                    tab[ligneClic][colonneClic].setIcon(null);
+                }
+                else if (!e.getCase(ligneClic,colonneClic).estOccupe() && pieceTampon != null){
+                    arrivee = new Position(ligneClic,colonneClic);
+                    if(e.getCase(depart.getLigne(),depart.getColonne()).getPiece().estValide(depart,arrivee))
+                        if (e.cheminPossible(depart,arrivee)){
+                            depart = null;
+                            tab[ligneClic][colonneClic].setIcon(iconeTampon);
+                            iconeTampon = null;
+                            pieceTampon = null;
+                            couleurControle = couleurControle == Piece.Couleur.BLANC ? Piece.Couleur.NOIR: Piece.Couleur.BLANC;
+                        }
+
+                }
+                else if(pieceTampon != null && e.getCase(ligneClic,colonneClic).estOccupe()){
+                    Piece pieceEnlevee =  e.getCase(ligneClic,colonneClic).getPiece();
+                    arrivee = new Position(ligneClic,colonneClic);
+                    if (e.cheminPossible(depart, arrivee)){
+
+                    }
+                    else if (e.captureParUnPionPossible(depart,arrivee)){
+
                     }
                 }
                 //5. votre travail
@@ -159,6 +237,7 @@ public class FenetreJeu extends JFrame {
 
         } // de la méthode mouseReleased
 
+        //SwingUtilities.updateComponentTreeUI(FenetreJeu.this);
     } // de la classe de gestion
 
 

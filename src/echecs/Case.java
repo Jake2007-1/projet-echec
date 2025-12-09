@@ -23,6 +23,8 @@ public class Case {
     }
 
     public boolean estOccupeCouleur(Piece.Couleur couleur){
+        if (!estOccupe())
+            return false;
         return piece.getCouleur() == couleur;
     }
 
@@ -31,4 +33,6 @@ public class Case {
         piece = nouvellePiece;
         return temp;
     }
+
+
 }

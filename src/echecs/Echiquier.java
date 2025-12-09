@@ -195,9 +195,7 @@ public class Echiquier implements MethodesEchiquier {
 
         if (diffLigne == direction && diffColonne == 1) {
             if (ca.estOccupe()) {
-                if (!ca.estOccupeCouleur(cd.getPiece().getCouleur())) {
-                    return true;
-                }
+                return !ca.estOccupeCouleur(cd.getPiece().getCouleur());
             }
         }
         return false;

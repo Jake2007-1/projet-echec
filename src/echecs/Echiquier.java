@@ -211,6 +211,7 @@ public class Echiquier implements MethodesEchiquier {
                 else
                     board += "{" + getCase(l,c).getPiece().getClass().getSimpleName().substring(0,2) + "," + getCase(l,c).getPiece().getCouleur() + "("+l+"," + c + ")}";
             }
+            board += "\n";
         }
         return board;
     }

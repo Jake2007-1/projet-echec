@@ -213,11 +213,14 @@ public class FenetreJeu extends JFrame {
                     arrivee = new Position(ligneClic,colonneClic);
                     if(e.getCase(depart.getLigne(),depart.getColonne()).getPiece().estValide(depart,arrivee))
                         if (e.cheminPossible(depart,arrivee)){
-                            depart = null;
                             tab[ligneClic][colonneClic].setIcon(iconeTampon);
+                            e.getCase(ligneClic,colonneClic).setPiece(pieceTampon);
+                            e.getCase(depart.getLigne(),depart.getColonne()).setPiece(null);
+                            depart = null;
                             iconeTampon = null;
                             pieceTampon = null;
                             couleurControle = couleurControle == Piece.Couleur.BLANC ? Piece.Couleur.NOIR: Piece.Couleur.BLANC;
+
                         }
 
                 }

@@ -16,6 +16,7 @@ import java.awt.*;
 import javax.swing.*;
 
 import java.awt.event.*;
+import java.util.Iterator;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -155,46 +156,19 @@ public class FenetreJeu extends JFrame {
             // si on clique sur le bouton reset
             else if (eve.getSource() == boutonReset) {
                 //4. votre travail
+//                couleurControle = Piece.Couleur.BLANC;
                 champTexte.setText("C'est aux " + couleurControle.toString().toLowerCase() + "s à jouer ");
                 for (int i = 0; i < 8; i++) {
-
-                    tab[1][i].setIcon(new ImageIcon("./Icones/PN.gif"));
-                    tab[6][i].setIcon(new ImageIcon("./Icones/PB.gif"));
-                    switch (i){
-                        case 0:
-                        case 7:
-                            tab[0][i].setIcon(new ImageIcon("./Icones/TN.gif"));
-                            tab[7][i].setIcon(new ImageIcon("./Icones/TB.gif"));
-                            tab[2][i].setIcon(new ImageIcon(""));
-                            tab[3][i].setIcon(new ImageIcon(""));
-                            tab[4][i].setIcon(new ImageIcon(""));
-                            tab[5][i].setIcon(new ImageIcon(""));
-                            couleurControle = Piece.Couleur.BLANC;
-                            break;
-                        case 1:
-                        case 6:
-                            tab[0][i].setIcon(new ImageIcon("./Icones/CN.gif"));
-                            tab[7][i].setIcon(new ImageIcon("./Icones/CB.gif"));
-                            break;
-                        case 2:
-                        case 5:
-                            tab[0][i].setIcon(new ImageIcon("./Icones/FN.gif"));
-                            tab[7][i].setIcon(new ImageIcon("./Icones/FB.gif"));
-                            break;
-                        case 3:
-                            tab[0][i].setIcon(new ImageIcon("./Icones/DN.gif"));
-                            tab[7][i].setIcon(new ImageIcon("./Icones/DB.gif"));
-                            break;
-                        case 4:
-                            tab[0][i].setIcon(new ImageIcon("./Icones/RN.gif"));
-                            tab[7][i].setIcon(new ImageIcon("./Icones/RB.gif"));
-                            break;
-                        default:
-
-
+                    for (int j = 0; j < 8; j++) {
+                        tab[i][j].setIcon(null);
                     }
-
                 }
+
+                removeAllJLabels(panelBlanc);
+                removeAllJLabels(panelNoir);
+
+
+
 
             } else { // donc on a cliqué sur un JLabel
                 for (int i = 0; i < 8; i++) {
@@ -280,6 +254,14 @@ public class FenetreJeu extends JFrame {
     } // de la classe de gestion
 
 
+    public static void removeAllJLabels(JPanel panel) {
+        Component[] components = panel.getComponents();
+        for (Component c : components) {
+            if (c instanceof JLabel) {
+                panel.remove(c);
+            }
+        }
+    }
     // main pour pouvoir exécuter l'interface graphique
     public static void main(String[] args) {
         try {

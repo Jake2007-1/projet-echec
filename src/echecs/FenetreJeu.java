@@ -165,6 +165,11 @@ public class FenetreJeu extends JFrame {
                         case 7:
                             tab[0][i].setIcon(new ImageIcon("./Icones/TN.gif"));
                             tab[7][i].setIcon(new ImageIcon("./Icones/TB.gif"));
+                            tab[2][i].setIcon(new ImageIcon(""));
+                            tab[3][i].setIcon(new ImageIcon(""));
+                            tab[4][i].setIcon(new ImageIcon(""));
+                            tab[5][i].setIcon(new ImageIcon(""));
+                            couleurControle = Piece.Couleur.BLANC;
                             break;
                         case 1:
                         case 6:
@@ -184,6 +189,9 @@ public class FenetreJeu extends JFrame {
                             tab[0][i].setIcon(new ImageIcon("./Icones/RN.gif"));
                             tab[7][i].setIcon(new ImageIcon("./Icones/RB.gif"));
                             break;
+                        default:
+
+
                     }
 
                 }
@@ -220,27 +228,55 @@ public class FenetreJeu extends JFrame {
                             iconeTampon = null;
                             pieceTampon = null;
                             couleurControle = couleurControle == Piece.Couleur.BLANC ? Piece.Couleur.NOIR: Piece.Couleur.BLANC;
-
                         }
 
                 }
                 else if(pieceTampon != null && e.getCase(ligneClic,colonneClic).estOccupe()){
-                    Piece pieceEnlevee =  e.getCase(ligneClic,colonneClic).getPiece();
+
                     arrivee = new Position(ligneClic,colonneClic);
-                    if (e.cheminPossible(depart, arrivee)){
+                    if (e.cheminPossible(depart,arrivee)){
+                        Piece pieceEnlevee =  e.getCase(ligneClic,colonneClic).getPiece();
+                        if (depart != arrivee){
+                            if (e.getCase(depart.getLigne(),depart.getColonne()).estOccupeCouleur(Piece.Couleur.NOIR))
+                                panelBlanc.add(new JLabel(tab[ligneClic][colonneClic].getIcon()));
+                            else
+                                panelNoir.add(new JLabel(tab[ligneClic][colonneClic].getIcon()));
+                            tab[ligneClic][colonneClic].setIcon(iconeTampon);
+                            e.getCase(ligneClic,colonneClic).setPiece(pieceTampon);
+                            e.getCase(depart.getLigne(),depart.getColonne()).setPiece(null);
+                            depart = null;
+                            iconeTampon = null;
+                            pieceTampon = null;
+                            couleurControle = couleurControle == Piece.Couleur.BLANC ? Piece.Couleur.NOIR: Piece.Couleur.BLANC;
+                            if (pieceEnlevee.getType() == Piece.Type.ROI)
+                                champTexte.setText("Partie fini, le roi a été capturé");
+                        }
 
                     }
-                    else if (e.captureParUnPionPossible(depart,arrivee)){
 
+                    else if( pieceTampon.getType() == Piece.Type.PION && e.captureParUnPionPossible(depart,arrivee)){
+                        Piece pieceEnlevee =  e.getCase(ligneClic,colonneClic).getPiece();
+                        if (e.getCase(depart.getLigne(),depart.getColonne()).estOccupeCouleur(Piece.Couleur.NOIR))
+                            panelBlanc.add(new JLabel(tab[ligneClic][colonneClic].getIcon()));
+                        else
+                            panelNoir.add(new JLabel(tab[ligneClic][colonneClic].getIcon()));
+                        tab[ligneClic][colonneClic].setIcon(iconeTampon);
+                        e.getCase(ligneClic,colonneClic).setPiece(pieceTampon);
+                        e.getCase(depart.getLigne(),depart.getColonne()).setPiece(null);
+                        depart = null;
+                        iconeTampon = null;
+                        pieceTampon = null;
+                        couleurControle = couleurControle == Piece.Couleur.BLANC ? Piece.Couleur.NOIR: Piece.Couleur.BLANC;
+                        if (pieceEnlevee.getType() == Piece.Type.ROI)
+                            champTexte.setText("Partie fini, le roi a été capturé");
                     }
                 }
                 //5. votre travail
 
             } // du grand else
-
+            SwingUtilities.updateComponentTreeUI(FenetreJeu.this);
         } // de la méthode mouseReleased
 
-        //SwingUtilities.updateComponentTreeUI(FenetreJeu.this);
     } // de la classe de gestion
 
 

@@ -222,8 +222,20 @@ public class FenetreJeu extends JFrame {
                             iconeTampon = null;
                             pieceTampon = null;
                             couleurControle = couleurControle == Piece.Couleur.BLANC ? Piece.Couleur.NOIR: Piece.Couleur.BLANC;
-                            if (pieceEnlevee.getType() == Piece.Type.ROI)
+                            if (pieceEnlevee.getType() == Piece.Type.ROI) {
                                 champTexte.setText("Partie fini, le roi a été capturé");
+                                couleurControle = Piece.Couleur.BLANC;
+
+                                for (int i = 0; i < 8; i++) {
+                                    for (int j = 0; j < 8; j++) {
+                                        tab[i][j].setIcon(null);
+                                    }
+                                }
+
+                                removeAllJLabels(panelBlanc);
+                                removeAllJLabels(panelNoir);
+
+                            }
                         }
 
                     }
@@ -241,15 +253,29 @@ public class FenetreJeu extends JFrame {
                         iconeTampon = null;
                         pieceTampon = null;
                         couleurControle = couleurControle == Piece.Couleur.BLANC ? Piece.Couleur.NOIR: Piece.Couleur.BLANC;
-                        if (pieceEnlevee.getType() == Piece.Type.ROI)
+                        if (pieceEnlevee.getType() == Piece.Type.ROI) {
                             champTexte.setText("Partie fini, le roi a été capturé");
+                            couleurControle = Piece.Couleur.BLANC;
+
+                            for (int i = 0; i < 8; i++) {
+                                for (int j = 0; j < 8; j++) {
+                                    tab[i][j].setIcon(null);
+                                }
+                            }
+
+                            removeAllJLabels(panelBlanc);
+                            removeAllJLabels(panelNoir);
+                        }
                     }
                 }
                 //5. votre travail
 
             } // du grand else
             SwingUtilities.updateComponentTreeUI(FenetreJeu.this);
+
         } // de la méthode mouseReleased
+
+
 
     } // de la classe de gestion
 
@@ -262,6 +288,7 @@ public class FenetreJeu extends JFrame {
             }
         }
     }
+
     // main pour pouvoir exécuter l'interface graphique
     public static void main(String[] args) {
         try {
